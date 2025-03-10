@@ -221,11 +221,12 @@ body:not(.dark-mode) #toggleDarkMode {
 
     table td {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
         padding: 30px;
         border: none;
         border-bottom: 1px solid #ccc;
+        text-align: center;
     }
 
     table td::before {
