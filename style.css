@@ -42,9 +42,9 @@ body.dark-mode .btn-primary {
 }
 
 #toggleDarkMode{
-    position: absolute;
-    right: 30px;
-    top: 30px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -176,8 +176,8 @@ body:not(.dark-mode) #toggleDarkMode {
 
 @media screen and (max-width:650px){
     #toggleDarkMode{
-        position: absolute;
-        right: -270px;
+        position: fixed;
+        right: 20px;
         top: 20px;
         border-radius: 50%;
         width: 50px;
@@ -192,5 +192,49 @@ body:not(.dark-mode) #toggleDarkMode {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+
+@media (max-width: 998px) {
+    form {
+        text-align: center; 
+        flex-direction: column;
+    }
+
+    form input {
+        width: 100%;
+    }
+
+    form button {
+        width: 100%;
+    }
+
+    table, thead, tbody, th, td, tr {
+        text-align: center;
+        display: block;
+    }
+
+    table th {
+        display: none;
+    }
+
+    table td {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 30px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .btn{
+        width: 100%;
     }
 }
