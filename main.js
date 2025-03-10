@@ -78,7 +78,8 @@ btn_add.onclick = function () {
         // إذا كان editIndex يحتوي على قيمة، فهذا يعني أننا نقوم بتعديل المستخدم
         arr[editIndex] = {
             UserName: UserNameInput.value,
-            email: emailInput.value
+            email: emailInput.value,
+            count: countInput.value
         };
         btn_add.textContent = "Add";  // إعادة النص إلى "إضافة" بعد التعديل
         editIndex = -1;  // إعادة فهرس التعديل إلى -1
@@ -107,6 +108,7 @@ function Delete(index) {
 function Edit(index) {
     UserNameInput.value = arr[index].UserName;
     emailInput.value = arr[index].email;
+    countInput.value = arr[index].count;
     editIndex = index;  // حفظ فهرس المستخدم الذي يتم تعديله
     btn_add.textContent = "Edit";  // تغيير النص إلى "تعديل"
 }
@@ -196,10 +198,6 @@ function deleteAll() {
 
 };
 //endDeleteAll
-
-
-
-
 
 
 // تحميل البيانات عند بدء التشغيل
