@@ -1,0 +1,196 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* الوضع الفاتح (الافتراضي) */
+body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* الوضع الداكن */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* تخصيص ألوان الجدول في الوضع الداكن */
+body.dark-mode table {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode table td, body.dark-mode table th {
+    border-color: #444;
+}
+
+body.dark-mode .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+#toggleDarkMode{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #000000; /* Default background color for light mode */
+    color: #f8f9fa; /* Default icon color for light mode */
+    border-radius: 50%;  /* Rounded button */
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    animation: bounce 0.5s infinite alternate;
+}
+
+
+
+/* Animation for adding/removing rows smoothly */
+table{
+    text-align: center;
+}
+
+.table tbody tr {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+/* .table tbody .tr-visible {
+    opacity: 1;
+} */
+
+/* Animation for button text */
+button {
+    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: transform 0.4s ease;
+}
+
+button.btn-outline-primary,
+button.btn-outline-danger {
+    transition: transform 0.4s ease;
+}
+
+button:hover {
+    transform: scale(1.1); /* Button hover animation */
+    transition: transform 0.4s ease;
+}
+
+/* Smooth transition for dark mode toggle */
+body.dark-mode {
+    transition: background-color 0.5s, color 0.5s;
+}
+
+input, .table {
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* Add a smooth background transition for the toggle button */
+#toggleDarkMode.active {
+    background-color: #f8f9fa; /* Color when dark mode is active */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: toggleButtonEffect 0.5s ease;
+}
+
+/* Smooth transition for the toggleDarkMode button */
+#toggleDarkMode {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#toggleDarkMode:hover {
+    transform: scale(1.1); /* Zoom in slightly when hovering */
+}
+
+/* Icon smooth transition */
+#toggleDarkMode i {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Optionally, you can also add a glow effect on the button when dark mode is enabled */
+body.dark-mode #toggleDarkMode {
+    background-color: #f8f9fa; /* Light background when in dark mode */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body:not(.dark-mode) #toggleDarkMode {
+    background-color: #000000; /* Dark background when in light mode */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+#toggleDarkMode:hover {
+    animation: bounce 0.5s infinite alternate;
+}
+
+/* Bouncing animation for button hover */
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    70%{
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes toggleButtonEffect {
+    0% {
+        transform: scale(1) rotate(0deg); /* Initial state */
+        opacity: 1;
+        box-shadow: none;
+    }
+    25% {
+        transform: scale(1.2) rotate(10deg); /* Grow and rotate */
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1) rotate(-10deg); /* Reverse rotation */
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Glowing effect */
+    }
+    100% {
+        transform: scale(1) rotate(0deg); /* Back to normal */
+        opacity: 1;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Remove glow */
+    }
+}
+
+@media screen and (max-width:650px){
+    #toggleDarkMode{
+        position: absolute;
+        right: -270px;
+        top: 20px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background-color: #000000; /* Default background color for light mode */
+        color: #f8f9fa; /* Default icon color for light mode */
+        border-radius: 50%;  /* Rounded button */
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

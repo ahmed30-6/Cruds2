@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="stylesheet" href="css bootstrap file/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container p-3 w-100 mt-5">
+        <form w-50>
+            <div class="form-floating mb-3 ">
+                <input id="UserNameInput" type="text" class="form-control " id="floatingPassword" placeholder="UserName">
+                <label for="floatingPassword">UserName</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="emailInput" type="email" class="form-control" id="floatingInput"
+                    placeholder="name@example.com">
+                <label for="floatingInput">Email </label>
+            </div>
+            <div class="input-group mb-4">
+                <input type="number" id="count" class="form-control" placeholder="Count" />
+                <button class="btn btn-outline-secondary" id="btnIncrease">+</button>
+                <button class="btn btn-outline-secondary" id="btnDecrease">-</button>
+            </div>
+            
+
+            <button id="btn_add" class="btn btn-primary w-100" type="reset">add</button>
+            <button id="btn_delete" class="btn btn-danger w-100 mt-2" type="button" onclick="deleteAll()">Delete All</button>
+        </form>
+
+        <table class="table w-100 mt-4 ">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Count</th>
+                    <th class="me-5" scope="col">Delete</th>
+                    <th class="me-5" scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <button id="toggleDarkMode" class="btn btn-dark mt-2" ><i class="ri-moon-fill"></i></button>
+
+
+    <script src="js bootstrap file/popper.min.js"></script>
+    <script src="js bootstrap file/jquery-3.7.1.min.js"></script>
+    <script src="js bootstrap file/bootstrap.js"></script>
+    <script src="js bootstrap file/bootstrap.bundle.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
