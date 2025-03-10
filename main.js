@@ -38,9 +38,9 @@ function Show() {
         <td>${user.UserName}</td>
         <td>${user.email}</td>
         <td>
-            <button onclick="decreaseCount(${index})" class="btn">-</button>
+            <button onclick="decreaseCount(${index})" class="btn btn-outline-primary">-</button>
             <span>${user.count}</span>
-            <button onclick="increaseCount(${index})" class="btn">+</button>
+            <button onclick="increaseCount(${index})" class="btn btn-outline-primary">+</button>
         </td>
         <td>
             <button onclick="Delete(${index})" class="btn btn-outline-danger">Delete</button>
@@ -138,6 +138,8 @@ toggleDarkMode.onclick = function () {
     UserNameInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
     emailInput.classList.toggle("text-light", document.body.classList.contains("dark-mode"));
     emailInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
+    countInput.classList.toggle("text-white", document.body.classList.contains("dark-mode"));
+    countInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
     table.classList.toggle("table-dark", document.body.classList.contains("dark-mode"));
     location.reload();
 };
@@ -150,6 +152,7 @@ if (localStorage.getItem("darkMode") === "enabled") {
     toggleDarkMode.querySelector("i").style.color = "#343a40";  // تغيير لون الأيقونة إلى الأسود عند تحميل الوضع الداكن
     toggleDarkMode.style.background = "#f8f9fa";  // تغيير اللون للزر في الوضع الداكن
     UserNameInput.classList.add("text-light", "bg-dark");
+    countInput.classList.add("text-light", "bg-dark");
     emailInput.classList.add("text-light", "bg-dark");
     table.classList.add("table-dark");
 
