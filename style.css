@@ -239,3 +239,82 @@ body:not(.dark-mode) #toggleDarkMode {
         width: 100%;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #1a1a1a; /* Dark background */
+    color: #f8f9fa; /* Light text */
+}
+
+.dark-mode .container {
+    background-color: #2d2d2d; /* Darker container background */
+    color: #f8f9fa;
+    border: 1px solid #444; /* Add a subtle border */
+}
+
+.dark-mode .form-control {
+    background-color: #444; /* Dark input background */
+    color: #f8f9fa; /* Light input text */
+    border-color: #666; /* Dark input border */
+}
+
+.dark-mode .form-control::placeholder {
+    color: #bbb; /* Light placeholder text */
+}
+
+.dark-mode .btn-primary {
+    background-color: #0d6efd; /* Primary button color */
+    border-color: #0d6efd;
+}
+
+.dark-mode .btn-danger {
+    background-color: #dc3545; /* Danger button color */
+    border-color: #dc3545;
+}
+
+.dark-mode .btn-outline-primary {
+    color: #0d6efd; /* Outline primary button text */
+    border-color: #0d6efd;
+}
+
+.dark-mode .btn-outline-primary:hover {
+    background-color: #0d6efd; /* Hover background */
+    color: #fff; /* Hover text */
+}
+
+.dark-mode .btn-outline-danger {
+    color: #dc3545; /* Outline danger button text */
+    border-color: #dc3545;
+}
+
+.dark-mode .btn-outline-danger:hover {
+    background-color: #dc3545; /* Hover background */
+    color: #fff; /* Hover text */
+}
+
+.dark-mode .table {
+    background-color: #2d2d2d; /* Dark table background */
+    color: #f8f9fa; /* Light table text */
+}
+
+.dark-mode .table th,
+.dark-mode .table td {
+    border-color: #444; /* Dark table borders */
+}
+
+.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #3d3d3d; /* Dark striped rows */
+}
+
+.dark-mode .table-hover tbody tr:hover {
+    background-color: #4d4d4d; /* Dark hover effect */
+}
+
+.dark-mode .toggleDarkMode {
+    background-color: #444; /* Dark mode button background */
+    color: #f8f9fa; /* Dark mode button text */
+}
+
+.dark-mode .toggleDarkMode:hover {
+    background-color: #555; /* Dark mode button hover */
+}

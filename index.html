@@ -4,66 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="css bootstrap file/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Ahmed || cruds 2</title>
+    <title>Ahmed || CRUDS 2</title>
 </head>
 
 <body>
     <div class="container p-3 w-100 mt-5">
-        <form w-50>
-            <div class="form-floating mb-3 ">
-                <input id="UserNameInput" type="text" class="form-control " id="floatingPassword" placeholder="UserName">
-                <label for="floatingPassword">UserName</label>
+        <div class="row">
+            <div class="col-12 col-lg-2 col-md-2">
+                <h3>CRUDS System</h3>
             </div>
-            <div class="form-floating mb-3">
-                <input id="emailInput" type="email" class="form-control" id="floatingInput"
-                    placeholder="name@example.com">
-                <label for="floatingInput">Email </label>
+            <div class="col-12 col-lg-10 col-md-10">
+                <form id="dataForm" class="w-50">
+                    <!-- Title -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="titleInput" placeholder="Title" required>
+                        <label for="titleInput">Title</label>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="priceInput" placeholder="Price" required>
+                        <label for="priceInput">Price</label>
+                    </div>
+
+                    <!-- Taxs -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="taxInput" placeholder="Taxs" required>
+                        <label for="taxInput">Taxs</label>
+                    </div>
+
+                    <!-- Ads -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="adsInput" placeholder="Ads" required>
+                        <label for="adsInput">Ads</label>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="categoryInput" placeholder="Category" required>
+                        <label for="categoryInput">Category</label>
+                    </div>
+
+                    <!-- Count -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="countInput" placeholder="Count" value="1" required>
+                        <label for="countInput">Count</label>
+                    </div>
+
+                    <!-- Buttons -->
+                    <button id="btn_add" class="btn btn-primary w-100" type="submit">Add</button>
+                    <button id="btn_delete" class="btn btn-danger w-100 mt-2" type="button">Delete All</button>
+                </form>
+
+                <!-- Table for Displaying Data -->
+                <table class="table w-100 mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Taxs</th>
+                            <th scope="col">Ads</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Count</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Edit Count</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <!-- Data rows will be added here dynamically -->
+                    </tbody>
+                </table>
             </div>
-            <div class="input-group mb-4">
-                <div class="form-floating mb-3">
-                <input type="number" id="count" class="form-control text-light" placeholder="Count" />
-                <label for="floatingInput">count </label>
-            </div>
-                
-            </div>
-            
-
-            <button id="btn_add" class="btn btn-primary w-100" type="reset">add</button>
-            <button id="btn_delete" class="btn btn-danger w-100 mt-2" type="button" onclick="deleteAll()">Delete All</button>
-        </form>
-
-        <table class="table w-100 mt-4 ">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">UserName</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Count</th>
-                    <th class="me-5" scope="col">Delete</th>
-                    <th class="me-5" scope="col">Edit</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
-
-
+        </div>
     </div>
 
-    <button id="toggleDarkMode" class="btn btn-dark mt-2" ><i class="ri-moon-fill"></i></button>
+    <!-- Dark Mode Toggle Button -->
+    <button id="toggleDarkMode" class="btn btn-dark mt-2"><i class="ri-moon-fill"></i></button>
 
-
+    <!-- Bootstrap JS and Dependencies -->
     <script src="js bootstrap file/popper.min.js"></script>
     <script src="js bootstrap file/jquery-3.7.1.min.js"></script>
     <script src="js bootstrap file/bootstrap.js"></script>
     <script src="js bootstrap file/bootstrap.bundle.js"></script>
+    <!-- Custom JS -->
     <script src="main.js"></script>
 </body>
 
 </html>
-

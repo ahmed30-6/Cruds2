@@ -1,205 +1,225 @@
-// تحديد العناصر
-const UserNameInput = document.getElementById("UserNameInput");
-const emailInput = document.getElementById("emailInput");
+// main.js
+const titleInput = document.getElementById("titleInput");
+const priceInput = document.getElementById("priceInput");
+const taxInput = document.getElementById("taxInput");
+const adsInput = document.getElementById("adsInput");
+const categoryInput = document.getElementById("categoryInput");
+const countInput = document.getElementById("countInput");
 const tbody = document.getElementById("tbody");
 const btn_add = document.getElementById("btn_add");
+const btn_delete = document.getElementById("btn_delete");
 const toggleDarkMode = document.getElementById("toggleDarkMode");
 const table = document.querySelector(".table");
-const btn_delete = document.getElementById("btn_delete");
-const countInput = document.getElementById("count")
-let arr = [];
-let editIndex = -1;  // لتخزين فهرس المستخدم الذي يتم تعديله
 
-// تحميل البيانات من localStorage عند بدء التشغيل
+let arr = [];
+let editIndex = -1; // To store the index of the item being edited
+
+// Load Data from localStorage on Startup
 function loadData() {
-    const data = localStorage.getItem("users");
+    const data = localStorage.getItem("items");
     if (data) {
         arr = JSON.parse(data);
-        Show();
+        renderTable();
     }
 }
 
-// حفظ البيانات في localStorage
+// Save Data to localStorage
 function saveData() {
-    localStorage.setItem("users", JSON.stringify(arr));
+    localStorage.setItem("items", JSON.stringify(arr));
 }
 
-// عرض البيانات في الجدول
-function Show() {
-    tbody.innerHTML = "";  // أفرغ الجدول أولاً
+// Render Table with Data
+function renderTable() {
+    tbody.innerHTML = ""; // Clear the table first
 
-    // قم بإضافة الصفوف مع انيميشن التغيير
-    arr.forEach((user, index) => {
+    arr.forEach((item, index) => {
+        const total = (+item.price + +item.tax + +item.ads) * +item.count;
+
         const row = document.createElement("tr");
-        row.classList.add("table-row");  // إضافة فئة للتحديد
-
         row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${user.UserName}</td>
-        <td>${user.email}</td>
-        <td>
-            <button onclick="decreaseCount(${index})" class="btn btn-outline-primary">-</button>
-            <span>${user.count}</span>
-            <button onclick="increaseCount(${index})" class="btn btn-outline-primary">+</button>
-        </td>
-        <td>
-            <button onclick="Delete(${index})" class="btn btn-outline-danger">Delete</button>
-        </td>
-        <td>
-            <button onclick="Edit(${index}) ,scrollUp()" class="btn btn-outline-primary">Edit</button>
-        </td>
+            <td>${index + 1}</td>
+            <td>${item.title}</td>
+            <td>${item.price}</td>
+            <td>${item.tax}</td>
+            <td>${item.ads}</td>
+            <td>${item.category}</td>
+            <td>${item.count}</td>
+            <td>${total}</td>
+            <td>
+                <button onclick="decreaseCount(${index})" class="btn btn-outline-primary">-</button>
+                <span>${item.count}</span>
+                <button onclick="increaseCount(${index})" class="btn btn-outline-primary">+</button>
+            </td>
+            <td>
+                <button onclick="editItem(${index})" class="btn btn-outline-primary btn-sm">Edit</button>
+                <button onclick="deleteItem(${index})" class="btn btn-outline-danger btn-sm">Delete</button>
+            </td>
         `;
-
         tbody.appendChild(row);
-
-        // Trigger fade-in animation for the row
-        // setTimeout(() => {
-        //     row.classList.add("tr-visible");
-        // }, 100);
     });
 }
 
-// إضافة أو تعديل مستخدم
-btn_add.onclick = function () {
-    if (UserNameInput.value === "" || emailInput.value === "" || countInput.value === "") {
-        alert("Please fill in all fields");
+// Add or Edit Item
+btn_add.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (
+        !titleInput.value ||
+        !priceInput.value ||
+        !taxInput.value ||
+        !adsInput.value ||
+        !categoryInput.value ||
+        !countInput.value ||
+        countInput.value < 0
+    ) {
+        alert("Please fill in all fields correctly.");
         return;
     }
 
+    const item = {
+        title: titleInput.value,
+        price: priceInput.value,
+        tax: taxInput.value,
+        ads: adsInput.value,
+        category: categoryInput.value,
+        count: countInput.value,
+    };
+
     if (editIndex === -1) {
-        // إذا كان editIndex -1، فهذا يعني أننا نضيف مستخدم جديد
-        let user = {
-            UserName: UserNameInput.value,
-            email: emailInput.value,
-            count: countInput.value
-        };
-        arr.push(user);
+        // Add new item
+        arr.push(item);
     } else {
-        // إذا كان editIndex يحتوي على قيمة، فهذا يعني أننا نقوم بتعديل المستخدم
-        arr[editIndex] = {
-            UserName: UserNameInput.value,
-            email: emailInput.value,
-            count: countInput.value
-        };
-        btn_add.textContent = "Add";  // إعادة النص إلى "إضافة" بعد التعديل
-        editIndex = -1;  // إعادة فهرس التعديل إلى -1
+        // Edit existing item
+        arr[editIndex] = item;
+        btn_add.textContent = "Add";
+        editIndex = -1;
     }
 
-    Show();
+    renderTable();
     saveData();
-};
+    clearForm();
+});
 
-// حذف مستخدم
-function Delete(index) {
-    if (confirm("Are you sure you want to delete this user?")) {
-        // قم بحذف الصف مع الانيميشن
-        const row = tbody.querySelectorAll("tr")[index];
-        row.classList.add("fade-out");
-
-        setTimeout(() => {
-            arr.splice(index, 1);
-            Show();
-            saveData();
-        }, 500); // تأخير 500 ملي ثانية للسماح للانيميشن بالعمل
-    }
-}
-
-// تعديل مستخدم
-function Edit(index) {
-    UserNameInput.value = arr[index].UserName;
-    emailInput.value = arr[index].email;
-    countInput.value = arr[index].count;
-    editIndex = index;  // حفظ فهرس المستخدم الذي يتم تعديله
-    btn_add.textContent = "Edit";  // تغيير النص إلى "تعديل"
-}
-
-// تبديل الوضع بين الفاتح والداكن
-toggleDarkMode.onclick = function () {
-    document.body.classList.toggle("dark-mode");
-
-    // تغيير الأيقونة بناءً على الوضع
-    const icon = toggleDarkMode.querySelector("i");
-    if (document.body.classList.contains("dark-mode")) {
-        icon.classList.remove("ri-moon-fill");
-        icon.classList.add("ri-sun-fill");
-        icon.style.color = "#343a40";  // تغيير لون الأيقونة إلى الأسود في الوضع الداكن
-        localStorage.setItem("darkMode", "enabled");
-        toggleDarkMode.style.background = "#f8f9fa";  // تغيير اللون للزر في الوضع الداكن
-    } else {
-        icon.classList.remove("ri-sun-fill");
-        icon.classList.add("ri-moon-fill");
-        icon.style.color = "#f8f9fa";  // تغيير لون الأيقونة إلى الأبيض في الوضع الفاتح
-        localStorage.setItem("darkMode", "disabled");
-        toggleDarkMode.style.background = "#000000";  // تغيير اللون للزر في الوضع الفاتح
-    }
-
-    toggleDarkMode.classList.toggle("active");
-
-    // تطبيق التغييرات على الحقول والجدول
-    UserNameInput.classList.toggle("text-light", document.body.classList.contains("dark-mode"));
-    UserNameInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
-    emailInput.classList.toggle("text-light", document.body.classList.contains("dark-mode"));
-    emailInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
-    countInput.classList.toggle("text-white", document.body.classList.contains("dark-mode"));
-    countInput.classList.toggle("bg-dark", document.body.classList.contains("dark-mode"));
-    table.classList.toggle("table-dark", document.body.classList.contains("dark-mode"));
-    location.reload();
-};
-
-// تحميل الوضع المحدد مسبقًا
-if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-    toggleDarkMode.querySelector("i").classList.remove("ri-moon-fill");
-    toggleDarkMode.querySelector("i").classList.add("ri-sun-fill");
-    toggleDarkMode.querySelector("i").style.color = "#343a40";  // تغيير لون الأيقونة إلى الأسود عند تحميل الوضع الداكن
-    toggleDarkMode.style.background = "#f8f9fa";  // تغيير اللون للزر في الوضع الداكن
-    UserNameInput.classList.add("text-light", "bg-dark");
-    countInput.classList.add("text-light", "bg-dark");
-    emailInput.classList.add("text-light", "bg-dark");
-    table.classList.add("table-dark");
-
-}
-
-function scrollUp() {
-    if (scrollY > 50) {
-        scroll({
-            top: 10,
-            behavior: "smooth",
-        })
-    }
-}
-
-// زيادة قيمة count
-function increaseCount(index) {
-    arr[index].count = +arr[index].count + 1;
-    Show();
-    saveData();
-}
-
-// تقليل قيمة count
-function decreaseCount(index) {
-    if (arr[index].count > 0) {
-        arr[index].count = +arr[index].count - 1;
-        Show();
+// Delete Item
+function deleteItem(index) {
+    if (confirm("Are you sure you want to delete this item?")) {
+        arr.splice(index, 1);
+        renderTable();
         saveData();
     }
 }
 
+// Edit Item
+function editItem(index) {
+    titleInput.value = arr[index].title;
+    priceInput.value = arr[index].price;
+    taxInput.value = arr[index].tax;
+    adsInput.value = arr[index].ads;
+    categoryInput.value = arr[index].category;
+    countInput.value = arr[index].count;
+    editIndex = index;
+    btn_add.textContent = "Edit";
+    scrollUp();
+}
 
-function deleteAll() {
-    if (confirm("Are you sure you want to delete all ?")) {
-        setTimeout(() => {
-            localStorage.clear();
-            arr.splice(0);
-            Show();
-            saveData();
-        }, 500); // تأخير 500 ملي ثانية للسماح للانيميشن بالعمل
+// Delete All Items
+btn_delete.addEventListener("click", function () {
+    if (confirm("Are you sure you want to delete all items?")) {
+        arr = [];
+        renderTable();
+        saveData();
+    }
+});
+
+// Clear Form Inputs
+function clearForm() {
+    titleInput.value = "";
+    priceInput.value = "";
+    taxInput.value = "";
+    adsInput.value = "";
+    categoryInput.value = "";
+    countInput.value = "";
+}
+
+// Toggle Dark Mode
+toggleDarkMode.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    const icon = toggleDarkMode.querySelector("i");
+    if (document.body.classList.contains("dark-mode")) {
+        icon.classList.replace("ri-moon-fill", "ri-sun-fill");
+        toggleDarkMode.querySelector("i").classList.add("text-dark", document.body.classList.contains("dark-mode"));
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        toggleDarkMode.querySelector("i").classList.remove("text-dark", document.body.classList.contains("dark-mode"));
+        toggleDarkMode.querySelector("i").classList.add("text-light", document.body.classList.contains("dark-mode"));
+        icon.classList.replace("ri-sun-fill", "ri-moon-fill");
+        localStorage.setItem("darkMode", "disabled");
     }
 
-};
-//endDeleteAll
+    // Apply dark mode to form inputs
+    const inputs = document.querySelectorAll(".form-control");
+    inputs.forEach(input => {
+        input.classList.toggle("dark-mode-input", document.body.classList.contains("dark-mode"));
+    });
 
+    // Apply dark mode to buttons
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => {
+        button.classList.toggle("dark-mode-btn", document.body.classList.contains("dark-mode"));
+    });
 
-// تحميل البيانات عند بدء التشغيل
+    // Apply dark mode to table
+    table.classList.toggle("table-dark", document.body.classList.contains("dark-mode"));
+    
+    
+});
+
+// Load Dark Mode Preference
+if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+    toggleDarkMode.querySelector("i").classList.replace("ri-moon-fill", "ri-sun-fill");
+    toggleDarkMode.querySelector("i").classList.remove("text-dark");
+    toggleDarkMode.querySelector("i").classList.add("text-light");
+    toggleDarkMode.querySelector("i").classList.add("text-dark", document.body.classList.contains("dark-mode"));
+    // Apply dark mode to form inputs
+    const inputs = document.querySelectorAll(".form-control");
+    inputs.forEach(input => {
+        input.classList.add("dark-mode-input");
+    });
+    // Apply dark mode to buttons
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => {
+        button.classList.add("dark-mode-btn");
+    });
+
+    // Apply dark mode to table
+    table.classList.add("table-dark");
+}
+
+// Scroll to Top
+function scrollUp() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+}
+
+// Increase Count
+function increaseCount(index) {
+    arr[index].count = +arr[index].count + 1;
+    renderTable();
+    saveData();
+}
+
+// Decrease Count
+function decreaseCount(index) {
+    if (arr[index].count > 0) {
+        arr[index].count = +arr[index].count - 1;
+        renderTable();
+        saveData();
+    }
+}
+
+// Load Data on Startup
 loadData();
-
